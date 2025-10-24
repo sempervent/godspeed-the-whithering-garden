@@ -1,0 +1,21 @@
+<svg viewBox="0 0 220 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="tb db">
+  <title id="tb">Ritual Button</title><desc id="db">A pill button with inner sigil bloom hover state.</desc>
+  <defs>
+    <filter id="roughEdge">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="12" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="3"/>
+    </filter>
+    <filter id="bloomSoft">
+      <feGaussianBlur stdDeviation="1.5" result="b"/><feBlend in="SourceGraphic" in2="b" mode="screen"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#roughEdge)">
+    <rect x="4" y="4" rx="28" ry="28" width="212" height="56" fill="#1a1420" stroke="#c2a35e"/>
+    <g filter="url(#bloomSoft)">
+      <text x="110" y="38" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="16" fill="#e9e6dc" letter-spacing="2">PLANT SEED</text>
+      <circle cx="24" cy="32" r="8" fill="none" stroke="#5fa56b" stroke-width="2"/>
+      <path d="M24,24 L24,40 M20,32 L28,32" stroke="#5fa56b" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

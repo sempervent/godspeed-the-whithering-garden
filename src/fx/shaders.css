@@ -1,0 +1,199 @@
+/* Visual FX Shaders - CSS-based effects */
+
+/* Base shimmer effect */
+.fx--shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { 
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  50% { 
+    filter: hue-rotate(15deg) brightness(1.1);
+  }
+}
+
+/* Flicker effect */
+.fx--flicker {
+  animation: flicker 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes flicker {
+  0% { 
+    filter: brightness(1) contrast(1);
+  }
+  100% { 
+    filter: brightness(1.2) contrast(1.1);
+  }
+}
+
+/* Intense flicker for high entropy */
+.fx--intense-flicker {
+  animation: intense-flicker 0.2s ease-in-out infinite;
+}
+
+@keyframes intense-flicker {
+  0%, 100% { 
+    filter: brightness(1) contrast(1) hue-rotate(0deg);
+  }
+  25% { 
+    filter: brightness(1.3) contrast(1.2) hue-rotate(5deg);
+  }
+  50% { 
+    filter: brightness(0.8) contrast(1.3) hue-rotate(-5deg);
+  }
+  75% { 
+    filter: brightness(1.1) contrast(1.1) hue-rotate(3deg);
+  }
+}
+
+/* Bloom pulse for UI interactions */
+.fx--bloom-pulse {
+  animation: bloom-pulse 0.9s ease-out;
+}
+
+@keyframes bloom-pulse {
+  0% { 
+    filter: brightness(1) drop-shadow(0 0 0 transparent);
+  }
+  50% { 
+    filter: brightness(1.4) drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+  }
+  100% { 
+    filter: brightness(1) drop-shadow(0 0 0 transparent);
+  }
+}
+
+/* Seizure effects */
+.fx--whiteout {
+  animation: whiteout 0.5s ease-out;
+}
+
+@keyframes whiteout {
+  0% { 
+    background: transparent;
+  }
+  50% { 
+    background: rgba(255, 255, 255, 0.9);
+  }
+  100% { 
+    background: transparent;
+  }
+}
+
+.fx--scanline {
+  position: relative;
+  overflow: hidden;
+}
+
+.fx--scanline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 0, 0.1) 2px,
+    rgba(0, 255, 0, 0.1) 4px
+  );
+  animation: scanline-move 0.1s linear infinite;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+@keyframes scanline-move {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* Text corruption effects */
+.fx--text-rift {
+  animation: text-rift 2s ease-out;
+}
+
+@keyframes text-rift {
+  0% { 
+    transform: translateX(0);
+    filter: blur(0);
+  }
+  25% { 
+    transform: translateX(-2px);
+    filter: blur(0.5px);
+  }
+  50% { 
+    transform: translateX(2px);
+    filter: blur(1px);
+  }
+  75% { 
+    transform: translateX(-1px);
+    filter: blur(0.5px);
+  }
+  100% { 
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+
+/* Subtle vignette for atmosphere */
+.fx--vignette {
+  position: relative;
+}
+
+.fx--vignette::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Reduced motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  .fx--shimmer,
+  .fx--flicker,
+  .fx--intense-flicker,
+  .fx--bloom-pulse,
+  .fx--whiteout,
+  .fx--scanline,
+  .fx--text-rift {
+    animation: none !important;
+  }
+  
+  .fx--shimmer {
+    filter: hue-rotate(5deg) brightness(1.05);
+  }
+  
+  .fx--flicker,
+  .fx--intense-flicker {
+    filter: brightness(1.1) contrast(1.05);
+  }
+}
+
+/* Performance optimizations */
+.fx--shimmer,
+.fx--flicker,
+.fx--intense-flicker {
+  will-change: filter;
+}
+
+.fx--scanline::before {
+  will-change: transform;
+}
+
+.fx--text-rift {
+  will-change: transform, filter;
+}

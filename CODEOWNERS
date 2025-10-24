@@ -1,0 +1,14 @@
+# Global owners
+* @your-github-handle
+
+# Documentation
+*.md @your-github-handle
+
+# Configuration files
+package.json @your-github-handle
+tsconfig.json @your-github-handle
+vite.config.ts @your-github-handle
+tailwind.config.ts @your-github-handle
+
+# GitHub workflows
+.github/ @your-github-handle

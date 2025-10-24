@@ -1,0 +1,34 @@
+<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="rippleBlur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+    </filter>
+    <radialGradient id="rippleGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#5fa56b" stop-opacity="0.8"/>
+      <stop offset="70%" stop-color="#5fa56b" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#5fa56b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- Ripple circles -->
+  <circle cx="24" cy="24" r="4" fill="none" stroke="#5fa56b" stroke-width="2" opacity="0.8">
+    <animate attributeName="r" values="4;20" dur="0.6s" repeatCount="1"/>
+    <animate attributeName="opacity" values="0.8;0" dur="0.6s" repeatCount="1"/>
+  </circle>
+  
+  <circle cx="24" cy="24" r="4" fill="none" stroke="#5fa56b" stroke-width="1.5" opacity="0.6">
+    <animate attributeName="r" values="4;16" dur="0.8s" repeatCount="1" begin="0.1s"/>
+    <animate attributeName="opacity" values="0.6;0" dur="0.8s" repeatCount="1" begin="0.1s"/>
+  </circle>
+  
+  <circle cx="24" cy="24" r="4" fill="none" stroke="#5fa56b" stroke-width="1" opacity="0.4">
+    <animate attributeName="r" values="4;12" dur="1s" repeatCount="1" begin="0.2s"/>
+    <animate attributeName="opacity" values="0.4;0" dur="1s" repeatCount="1" begin="0.2s"/>
+  </circle>
+  
+  <!-- Center pulse -->
+  <circle cx="24" cy="24" r="2" fill="#5fa56b" opacity="0.9">
+    <animate attributeName="r" values="2;6;2" dur="0.4s" repeatCount="1"/>
+    <animate attributeName="opacity" values="0.9;0.3;0.9" dur="0.4s" repeatCount="1"/>
+  </circle>
+</svg>

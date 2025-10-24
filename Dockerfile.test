@@ -1,0 +1,27 @@
+# Test container with Playwright
+FROM mcr.microsoft.com/playwright:v1.48.0-jammy
+
+# Install pnpm
+RUN npm install -g pnpm
+
+# Set working directory
+WORKDIR /workspace
+
+# Copy package.json first for better caching
+COPY package.json ./
+
+# Install dependencies (no lock file needed)
+RUN pnpm install
+
+# Copy source code
+COPY . .
+
+# Set PATH to include node_modules/.bin
+ENV PATH="/workspace/node_modules/.bin:$PATH"
+
+# Set environment for testing
+ENV CI=true
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+
+# Default command
+CMD ["pnpm", "test"]

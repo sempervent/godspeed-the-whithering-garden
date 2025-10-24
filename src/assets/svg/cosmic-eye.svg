@@ -1,0 +1,47 @@
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="tc dc">
+  <title id="tc">Cosmic Eye</title><desc id="dc">A pulsing cosmic eye with radial gradients and star field displacement.</desc>
+  <defs>
+    <radialGradient id="eyeCore" cx="0.5" cy="0.5" r="0.8">
+      <stop offset="0" stop-color="#e9e6dc"/>
+      <stop offset="0.3" stop-color="#c2a35e"/>
+      <stop offset="0.7" stop-color="#5e3a7a"/>
+      <stop offset="1" stop-color="#0b0b0f"/>
+    </radialGradient>
+    <filter id="cosmicBloom">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feBlend in="SourceGraphic" in2="b" mode="screen"/>
+    </filter>
+    <filter id="starDisplace">
+      <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="2" seed="15" result="n">
+        <animate attributeName="baseFrequency" values="0.008;0.012;0.008" dur="6s" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4"/>
+    </filter>
+    <filter id="cosmicGrain">
+      <feTurbulence type="fractalNoise" baseFrequency="1.5" numOctaves="2" seed="9" result="g"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 0.15"/></feComponentTransfer>
+    </filter>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#0b0b0f"/>
+  <g filter="url(#cosmicBloom)">
+    <circle cx="150" cy="150" r="120" fill="url(#eyeCore)"/>
+    <circle cx="150" cy="150" r="80" fill="#e9e6dc" opacity="0.8"/>
+    <circle cx="150" cy="150" r="40" fill="#0b0b0f"/>
+    <circle cx="150" cy="150" r="20" fill="#e9e6dc"/>
+  </g>
+  
+  <!-- Star field -->
+  <g fill="#e9e6dc" filter="url(#starDisplace)">
+    <circle cx="80" cy="80" r="1"/>
+    <circle cx="220" cy="80" r="1"/>
+    <circle cx="80" cy="220" r="1"/>
+    <circle cx="220" cy="220" r="1"/>
+    <circle cx="150" cy="50" r="1"/>
+    <circle cx="150" cy="250" r="1"/>
+    <circle cx="50" cy="150" r="1"/>
+    <circle cx="250" cy="150" r="1"/>
+  </g>
+  
+  <rect width="100%" height="100%" style="mix-blend-mode:overlay" filter="url(#cosmicGrain)"/>
+</svg>

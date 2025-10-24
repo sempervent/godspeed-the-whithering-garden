@@ -1,0 +1,60 @@
+{
+  "name": "godseed-withering-garden",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts,.tsx",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepare": "husky install",
+    "build:loops": "ts-node scripts/generateLoops.ts",
+    "analyze:loop": "ts-node scripts/generateLoops.ts",
+    "prebuild": "npm run build:loops"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "zustand": "^4.4.7",
+    "clsx": "^2.0.0",
+    "inkjs": "^2.2.0",
+    "nanoevents": "^7.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@types/testing-library__jest-dom": "^6.0.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.16",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "postcss": "^8.4.32",
+    "prettier": "^3.1.1",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.2.2",
+    "ts-node": "^10.9.1",
+    "vite": "^5.0.8",
+    "vitest": "^1.0.4",
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/jest-dom": "^6.1.5",
+    "@playwright/test": "^1.48.0",
+    "playwright": "^1.48.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,md,json}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+}

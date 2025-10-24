@@ -1,0 +1,75 @@
+
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: godseed/dev
+    container_name: godseed-dev
+    profiles: ["dev"]
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/workspace:cached
+      - node_modules:/workspace/node_modules
+    environment:
+      - VITE_BASE_PATH=/
+    command: ["pnpm", "dev", "--host", "0.0.0.0"]
+
+  unit:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: godseed/unit
+    container_name: godseed-unit
+    profiles: ["test"]
+    volumes:
+      - .:/workspace:cached
+      - node_modules:/workspace/node_modules
+    command: ["pnpm", "test", "--run", "--reporter=verbose"]
+
+  e2e:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    image: godseed/e2e
+    container_name: godseed-e2e
+    profiles: ["e2e"]
+    shm_size: "1g"
+    volumes:
+      - .:/workspace:cached
+      - node_modules:/workspace/node_modules
+    working_dir: /workspace
+    environment:
+      - CI=true
+      - VITE_BASE_PATH=/
+    command: ["pnpm", "playwright", "test", "--reporter=line"]
+
+  build:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    image: godseed/build
+    container_name: godseed-build
+    profiles: ["build"]
+    volumes:
+      - dist:/app/dist
+    command: ["/bin/sh", "-c", "cp -r dist /app_out && ls -la /app_out"]
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    image: godseed/web
+    container_name: godseed-web
+    profiles: ["prod"]
+    ports:
+      - "8080:8080"
+    depends_on:
+      - build
+
+volumes:
+  node_modules:
+  dist:

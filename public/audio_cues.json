@@ -1,0 +1,102 @@
+{
+  "$schema": "https://example.local/godseed/audio-cues.schema.json",
+  "version": 1,
+  "cues": [
+    {
+      "id": "amb.drone.low",
+      "type": "loop",
+      "src": "/audio/drone_low.ogg",
+      "gain": 0.18,
+      "entropyMin": 0,
+      "entropyMax": 45,
+      "tags": ["ambient","soft","loop"],
+      "duckOn": ["ui.choice.open"],
+      "sidechainOn": ["sfx.pulse.heart"]
+    },
+    {
+      "id": "amb.drone.mid",
+      "type": "loop",
+      "src": "/audio/drone_mid.ogg",
+      "gain": 0.16,
+      "entropyMin": 35,
+      "entropyMax": 80,
+      "crossfadeFrom": "amb.drone.low",
+      "tags": ["ambient","loop"]
+    },
+    {
+      "id": "amb.hiss.static",
+      "type": "loop",
+      "src": "/audio/hiss_static.ogg",
+      "gain": 0.08,
+      "entropyMin": 60,
+      "entropyMax": 100,
+      "tags": ["static","loop","mirror"]
+    },
+    {
+      "id": "sfx.pulse.heart",
+      "type": "one",
+      "src": "/audio/pulse_heart.ogg",
+      "gain": 0.22,
+      "rateVar": [0.95, 1.08],
+      "cooldownMs": 800,
+      "tags": ["flesh","loud"]
+    },
+    {
+      "id": "sfx.chime.glass",
+      "type": "one",
+      "src": "/audio/chime_glass.ogg",
+      "gain": 0.2,
+      "cooldownMs": 600,
+      "tags": ["stone","soft"]
+    },
+    {
+      "id": "sfx.bell.far",
+      "type": "one",
+      "src": "/audio/bell_far.ogg",
+      "gain": 0.18,
+      "cooldownMs": 1500,
+      "tags": ["ash","soft","loop"]
+    }
+  ],
+  "routes": [
+    { "when": "entropy.enter.40", "play": ["amb.drone.mid"] },
+    { "when": "entropy.enter.60", "play": ["amb.hiss.static"] },
+    { "when": "entropy.exit.60", "stop": ["amb.hiss.static"] },
+    { "when": "entropy.tick.fast", "play": ["sfx.pulse.heart"] },
+    { "when": "ui.choice.open", "duck": 0.6, "forMs": 900 },
+    { "when": "story.flags.seed", "play": ["sfx.chime.glass"] },
+    { "when": "story.flags.awaken", "play": ["sfx.bell.far","sfx.pulse.heart"] },
+    { "when": "corruption.tag.loud", "play": ["sfx.pulse.heart"] },
+    { "when": "corruption.tag.soft", "play": ["sfx.chime.glass"] },
+    { "when": "omen.trigger", "play": ["sfx.bell.far", "sfx.pulse.heart"], "duck": 0.4, "forMs": 2000 },
+    { "when": "seed.spawn", "play": ["sfx.chime.glass"] },
+    { "when": "seed.expire", "play": ["amb.hiss.static"] },
+    { "when": "seed.click.viable", "play": ["sfx.chime.glass"] },
+    { "when": "seed.click.rot", "play": ["amb.hiss.static", "sfx.pulse.heart"] },
+    { "when": "god.spawn", "play": ["sfx.bell.far"] },
+    { "when": "god.bargain.open", "duck": 0.7, "forMs": 1200 },
+    { "when": "god.boon.Harvest", "play": ["sfx.chime.glass"] },
+    { "when": "god.boon.Stillness", "play": ["sfx.bell.far"] },
+    { "when": "god.boon.Veil", "play": ["sfx.chime.glass"] },
+    { "when": "god.boon.Echo", "play": ["sfx.bell.far", "sfx.chime.glass"] },
+    { "when": "god.price.TithedBreath", "play": ["sfx.pulse.heart"] },
+    { "when": "god.price.StoneDue", "play": ["amb.hiss.static"] },
+    { "when": "god.price.AshTax", "play": ["amb.hiss.static", "sfx.pulse.heart"] },
+    { "when": "god.price.DreamDebt", "play": ["sfx.bell.far"] },
+    { "when": "entropy.tier.enter.Pulse", "play": ["amb.drone.mid"] },
+    { "when": "entropy.tier.enter.Fever", "play": ["amb.hiss.static"] },
+    { "when": "entropy.tier.enter.Famine", "play": ["amb.hiss.static", "amb.drone.mid"] },
+    { "when": "entropy.tier.enter.Seizure", "play": ["sfx.bell.far", "sfx.pulse.heart"] },
+    { "when": "seed.feed", "play": ["sfx.chime.glass"] },
+    { "when": "seed.starve", "play": ["amb.hiss.static", "sfx.pulse.heart"] },
+    { "when": "seed.mature", "play": ["sfx.chime.glass"] },
+    { "when": "god.awaken", "play": ["sfx.bell.far", "sfx.pulse.heart"] },
+    { "when": "season.enter.SPRING", "play": ["amb.drone.low"] },
+    { "when": "season.enter.SUMMER", "play": ["amb.drone.mid"] },
+    { "when": "season.enter.AUTUMN", "play": ["amb.hiss.static"] },
+    { "when": "season.enter.WINTER", "play": ["amb.hiss.static", "amb.drone.mid"] },
+    { "when": "ending.AscendantChorus", "play": ["sfx.bell.far"] },
+    { "when": "ending.GardenFamine", "play": ["amb.hiss.static"] },
+    { "when": "ending.StoneSleep", "play": ["amb.drone.low"] }
+  ]
+}

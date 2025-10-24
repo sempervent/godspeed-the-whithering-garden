@@ -1,0 +1,44 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Force LF line endings for these file types
+*.js text eol=lf
+*.jsx text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Force CRLF line endings for these file types
+*.bat text eol=crlf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.wav binary
+*.mp3 binary
+*.ogg binary
+*.m4a binary
+*.webm binary
+
+# Audio files
+*.wav linguist-generated=true
+*.mp3 linguist-generated=true
+*.ogg linguist-generated=true
+
+# Generated files
+dist/ linguist-generated=true
+coverage/ linguist-generated=true
+test-results/ linguist-generated=true
+playwright-report/ linguist-generated=true
+
+# Docker files
+Dockerfile* text
+docker-compose*.yml text
+.dockerignore text
